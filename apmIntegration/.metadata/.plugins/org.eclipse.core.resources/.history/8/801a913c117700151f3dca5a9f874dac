@@ -1,0 +1,14 @@
+package apm.ca.com;
+
+public class pushData {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		 JSONPost pushData = new JSONPost("http://10.130.179.82:8080/apm/metricFeed");
+		 
+	
+
+	}
+
+}
