@@ -134,7 +134,7 @@ public class appPerformance {
 	               HttpClient h = HttpClientBuilder.create().build(); 
 	               HttpPost hp = new HttpPost(apiURL); 	               
 	               hp.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|app|" + name + ":Crashes\", \"value\"=\"" + crashes + "\"}] }",  
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|App|" + name + ":Crashes\", \"value\"=\"" + crashes + "\"}] }",  
 	                         ContentType.create("application/json"))); 
 	               HttpResponse hr = h.execute(hp);  
 	               
