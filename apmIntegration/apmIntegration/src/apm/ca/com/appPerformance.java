@@ -30,6 +30,8 @@ public class appPerformance {
 	    String dataOut = "";
 	    String crashes = "";
 	    String name  = "";
+	    
+	    String res = "";
 	  
 
 	          try {  
@@ -76,7 +78,7 @@ public class appPerformance {
 	               HttpClient a = HttpClientBuilder.create().build(); 
 	               HttpPost ap = new HttpPost(apiURL); 	               
 	               ap.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|App|" + name + ":http requests\", \"value\"=\"" + httpRequests + "\"}] }",  
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|app|" + name + ":http requests\", \"value\"=\"" + httpRequests + "\"}] }",  
 	                         ContentType.create("application/json"))); 
 	               HttpResponse ar = a.execute(ap);  
 	               
@@ -84,7 +86,7 @@ public class appPerformance {
 	               HttpClient b = HttpClientBuilder.create().build(); 
 	               HttpPost bp = new HttpPost(apiURL); 	               
 	               bp.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|App|" + name + ":http errors\", \"value\"=\"" + httpErrors + "\"}] }", 
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|app|" + name + ":http errors\", \"value\"=\"" + httpErrors + "\"}] }", 
 	                         ContentType.create("application/json"))); 
 	               HttpResponse brr = b.execute(bp);  
 	               
@@ -92,7 +94,7 @@ public class appPerformance {
 	               HttpClient c = HttpClientBuilder.create().build(); 	               
 	               HttpPost cp = new HttpPost(apiURL); 
 	               cp.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|App|" + name + ":Load time\", \"value\"=\"" + loadTime + "\"}] }",  
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|app|" + name + ":Load time\", \"value\"=\"" + loadTime + "\"}] }",  
 	                         ContentType.create("application/json"))); 	               
 	               HttpResponse cr = c.execute(cp);  	 
 	               
@@ -100,7 +102,7 @@ public class appPerformance {
 	               HttpClient d = HttpClientBuilder.create().build(); 
 	               HttpPost dp = new HttpPost(apiURL); 	               
 	               dp.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|App|" + name + ":Active users\", \"value\"=\"" + users + "\"}] }",  
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|app|" + name + ":Active users\", \"value\"=\"" + users + "\"}] }",  
 	                         ContentType.create("application/json"))); 
 	               HttpResponse dr = d.execute(dp);  
 	               
@@ -108,7 +110,7 @@ public class appPerformance {
 	               HttpClient e = HttpClientBuilder.create().build(); 
 	               HttpPost ep = new HttpPost(apiURL); 	               
 	               ep.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|App|" + name + ":Latency\", \"value\"=\"" + latency2 + "\"}] }",  
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|app|" + name + ":Latency\", \"value\"=\"" + latency2 + "\"}] }",  
 	                         ContentType.create("application/json"))); 
 	               HttpResponse er = e.execute(ep);  
 	               
@@ -116,7 +118,7 @@ public class appPerformance {
 	               HttpClient f = HttpClientBuilder.create().build(); 
 	               HttpPost fp = new HttpPost(apiURL); 	               
 	               fp.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|App|" + name + ":Data in\", \"value\"=\"" + dataIn + "\"}] }",  
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|app|" + name + ":Data in\", \"value\"=\"" + dataIn + "\"}] }",  
 	                         ContentType.create("application/json"))); 
 	               HttpResponse fr = f.execute(fp);  
 	               
@@ -124,7 +126,7 @@ public class appPerformance {
 	               HttpClient g = HttpClientBuilder.create().build(); 
 	               HttpPost gp = new HttpPost(apiURL); 	               
 	               gp.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|App|" + name + ":Data out\", \"value\"=\"" + dataOut + "\"}] }",  
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|app|" + name + ":Data out\", \"value\"=\"" + dataOut + "\"}] }",  
 	                         ContentType.create("application/json"))); 
 	               HttpResponse gr = g.execute(gp);  
 	               
@@ -136,12 +138,12 @@ public class appPerformance {
 	                         ContentType.create("application/json"))); 
 	               HttpResponse hr = h.execute(hp);  
 	               
-
+	               res = hr.toString();
 
 	             	               
-	               System.out.println("Pushed data for: " + name+"\n"); 
+	               System.out.println("Detected performance data for: " + name+"\n"); 
 
-	               // read and display return message and error
+	               // read and display return message and error for the last metricm crashes to see some API output
 	               BufferedReader rd = new BufferedReader(new InputStreamReader(hp.getEntity().getContent()));  
 	               String lineIn = "";  
 	               while ((lineIn = rd.readLine()) != null) {  
@@ -159,7 +161,8 @@ public class appPerformance {
 	               System.out.println(e);  
 	          }     
 	          
-	  		return "Finished pusing app performance data to EPAgent";
+	  		//return res;
+	          return "Finished pushing performance data";
 	     }  
 	
 		}

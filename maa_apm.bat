@@ -2,15 +2,15 @@ rem batch file to collect data from CA MAA using maa_ws.jar, and to push the res
 rem kopja02@cca.com, all rights reserved CA, Inc 2015
 rem set the following parameters:
 
-set EPAgentURL=130.119.30.141:8081
-set APMdataType=IntAverage 
+set EPAgentURL=10.132.64.63:8081
+set APMdataType=IntCounter
 set MAAURL="https://mdo.mobility.ca.com"
 set MAAtenant="maademo2"
 set MAAuser="renja01"
 set MAApwd="CAdemo123$"
-set MAAperiod="week"
-set MAAstart="2015-10-01"
-set MAAend="2015-10-23"
+set MAAperiod="month"
+set MAAstart="2015-09-01"
+set MAAend="2015-10-28"
 
 @echo off
 
@@ -18,8 +18,12 @@ rem deleting old log files to stop them growing too large
 
 IF EXIST apps.log del /F apps.log
 IF EXIST geo.log del /F geo.log
+IF EXIST geo.log del /F crashes.log
+IF EXIST geo.log del /F apps_alerted.log
 IF EXIST apps_apm.log del /F apps_apm.log
 IF EXIST geo_apm.log del /F geo_apm.log
+IF EXIST geo_apm.log del /F crashes_apm.log
+IF EXIST geo.log del /F apps_alerted_apm.log
 
 echo ================= Fetching app performance data from CA MAA =============
 java -jar maa_ws.jar %MAAURL% %MAAtenant% %MAAuser% %MAApwd% "/mdo/v1/performance/apps_summary" %MAAperiod% %MAAstart% %MAAend% >> apps.log
@@ -28,6 +32,8 @@ java -jar maa_ws.jar %MAAURL% %MAAtenant%  %MAAuser% %MAApwd% "/mdo/v1/usage/geo
 echo See geo.log for details
 java -jar maa_ws.jar %MAAURL% %MAAtenant%  %MAAuser% %MAApwd% "/mdo/v1/crashes/crash_summary" %MAAperiod% %MAAstart% %MAAend% >> crashes.log
 echo See crashes.log for details
+java -jar maa_ws.jar %MAAURL% %MAAtenant%  %MAAuser% %MAApwd% "/mdo/v1/apps/alerted" %MAAperiod% %MAAstart% %MAAend% >> apps_alerted.log
+echo See apps_alerted.log for details
 echo ================= Finished fetching data from CA MAA ====================
 
 echo ================= Pushing data to APM EPAgent ===========================
@@ -37,7 +43,9 @@ java -Xms54m -Xmx128m -jar apm_ws.jar %EPAgentURL% "geo" %APMdataType% >> geo_ap
 echo See geo_apm.log for details
 java -Xms54m -Xmx128m -jar apm_ws.jar %EPAgentURL% "crashes" %APMdataType% >> crashes_apm.log
 echo See geo_apm.log for details
-echo "================= Finished pushing data to APM EPAgent ==================
+java -Xms54m -Xmx128m -jar apm_ws.jar %EPAgentURL% "alerted" %APMdataType% >> apps_alerted_apm.log
+echo See apps_alerted_apm.log for details
+echo ================= Finished pushing data to APM EPAgent ==================
 
 
 

@@ -60,14 +60,14 @@ public class platformCrash {
 	               HttpClient a = HttpClientBuilder.create().build(); 
 	               HttpPost ap = new HttpPost(apiURL); 	               
 	               ap.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|Platform|" + name + ":Crashes\", \"value\"=\"" + usage + "\"}] }",
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|platform|" + name + ":Crashes\", \"value\"=\"" + usage + "\"}] }",
 
 	                         ContentType.create("application/json"))); 
 	               HttpResponse ar = a.execute(ap);           	               
 
 
 	             	               
-	               System.out.println("Pushed data for: " + name+"\n"); 
+	               System.out.println("Crashed apps: " + name+"\n"); 
 
 	               // read and display return message and error
 	               BufferedReader rd = new BufferedReader(new InputStreamReader(ar.getEntity().getContent()));  
@@ -89,7 +89,7 @@ public class platformCrash {
 	               System.out.println(e);  
 	          }     
 	          
-	  		return "Finished pushing crash data to EPAgent";
+	  		return "Finished pushing app crash data to EPAgent";
 	     }  
 	
 		}

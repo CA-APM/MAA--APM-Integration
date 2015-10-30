@@ -45,6 +45,8 @@ public class appGeo {
 						} else {
 						String[] spec = line.split(",");  
 						name  = spec[0];
+						
+						if (name.equals("")) name = "Unknown";
 
 	                   //number = Integer.parseInt(countryData[1]); 
 	                   // EPAgent wants string not int
@@ -60,14 +62,14 @@ public class appGeo {
 	               HttpClient a = HttpClientBuilder.create().build(); 
 	               HttpPost ap = new HttpPost(apiURL); 	               
 	               ap.setEntity(new StringEntity(  
-	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|Country|" + name + ":Usage\", \"value\"=\"" + usage + "\"}] }",
+	                         "{ \"metrics\" : [{ \"type\" : \""+dataType+"\", \"name\" : \"MAA|country|" + name + ":Usage\", \"value\"=\"" + usage + "\"}] }",
 
 	                         ContentType.create("application/json"))); 
 	               HttpResponse ar = a.execute(ap);           	               
 
 
 	             	               
-	               System.out.println("Pushed data for: " + name+"\n"); 
+	               System.out.println("App sessions detected in: " + name+"\n"); 
 
 	               // read and display return message and error
 	               BufferedReader rd = new BufferedReader(new InputStreamReader(ar.getEntity().getContent()));  
@@ -89,7 +91,7 @@ public class appGeo {
 	               System.out.println(e);  
 	          }     
 	          
-	  		return "Finished pushing country data to EPAgent";
+	  		return "Finished pushing country usage data to EPAgent";
 	     }  
 	
 		}

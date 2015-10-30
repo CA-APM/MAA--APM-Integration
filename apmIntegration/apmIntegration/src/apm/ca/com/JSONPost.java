@@ -22,11 +22,12 @@ public class JSONPost {
 		 String dataType = args[2];
     
     
-    //String EPAgentURL = "130.119.30.141:8081";
+   // String EPAgentURL = "10.132.64.63:8081";
    // String type = "appPerformance";
-   // String type = "geo";
+    //String type = "geo";
 		 //String type = "crashes";
-		 //String dataType = "intAverage";
+		   // String type = "alerted";
+		// String dataType = "IntCounter";
     
  
 System.out.println("Connecting to APM...");
@@ -49,10 +50,17 @@ System.out.println("Connecting to APM...");
         	  String getCrash = platformCrash.getCrashes(EPAgentURL, dataType);
               System.out.println(getCrash); 
         	  
+          }  else if (type.equals("alerted")) {
+        	  
+        	  String appAlert = appAlerts.getAlerts(EPAgentURL);
+        	
+              System.out.println(appAlert); 
+        	  
           }
+          
           else {
         	  
-        	  System.out.println("This utility supports data types \"geo\", \"crashes\" and \"appPerformance\"");
+        	  System.out.println("This utility supports data types \"geo\", \"crashes\", \"alerted\" and \"appPerformance\"");
         	  
           }
           }
