@@ -11,20 +11,20 @@ This utility has been tested with APM 10.1, EPAgent 10.0.0.5 and CA MAA 15.4
 JDK 1.7.0_55 or higher
 
 
-## License
-Link to the license this field pack is provided under. See [Licensing](https://communities.ca.com/docs/DOC-231150910#license) on the CA APM Developer Community.
-
-
 # Installation Instructions
 
 1.Download and install the CA APM EPAgent. Instructions can be found at:
 
 https://communities.ca.com/docs/DOC-231150915
 
-2.Start the EPAgent – make sure no connection errors occur
-3.Save the maa_apm.zip onto the EPAgent or other available machine. Unzip into a folder and verify maa_ws.jar, apm_ws.jar and maa_apm.bat exist
-4.Open the maa_apm.bat for editing
-5.Modify the connection and the filter parameters
+2. Download the maa_apm.zip from : 
+
+https://github-isl-01.ca.com/kopja02/MAA--APM-Integration/releases/tag/maa_apm_1.0
+
+3.Start the EPAgent – make sure no connection errors occur
+4.Save the maa_apm.zip onto the EPAgent or other available machine. Unzip into a folder and verify maa_ws.jar, apm_ws.jar and maa_apm.bat exist
+5.Open the maa_apm.bat for editing
+6.Modify the connection and the filter parameters
 
 set EPAgentURL=<EPAgentIP>:8081
 set APMdataType=IntCounter
@@ -38,12 +38,12 @@ set MAAend="2015-11-02"
 
 
 
-6.Modify the batch file by keeping or removing the data calls that are required for your particular integration. 
+7.Modify the batch file by keeping or removing the data calls that are required for your particular integration. 
 Currently the integration supports data for application performance, geographical user sessions and crash data by platform. 
 Same jar files are used for each of these types. The types are distinguishable by the command line parameters like 
 /mdo/v1/performance/apps_summary (maa_ws.jar) or appPerformance (apm_ws.jar) 
 
-7.Run the batch file by double-clicking on it, or by typing its name in command prompt. Result:
+8.Run the batch file by double-clicking on it, or by typing its name in command prompt. Result:
 
 
 ================= Fetching app performance data from CA MAA ============
